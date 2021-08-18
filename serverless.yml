@@ -2,7 +2,7 @@ service: hello-serverless
 
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs15.x
 
 environment:
   marketTable: Market
