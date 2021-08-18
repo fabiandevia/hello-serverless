@@ -3,6 +3,7 @@ pipeline{
     stages{
         stage('build'){
         steps{
+           git 'https://github.com/fabiandevia/hello-serverless'
            sh 'npm install'
         }
      }
