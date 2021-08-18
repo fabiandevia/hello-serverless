@@ -24,7 +24,7 @@ archiveArtifacts(artifacts: 'coverage/**', onlyIfSuccessful: true)
 stage('deploy') {
 steps {
 nodejs(nodeJSInstallationName: 'nodejs') {
-withAWS(credentials: 'aws-credentials') {
+withAWS(credentials: 'AKIAUOSTY2F6C5W65XHJ') {
 sh 'serverless deploy'
 }
 }
