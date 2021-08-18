@@ -1,55 +1,15 @@
-service: hello-serverless-fdevias
+service: aws-python-simple-http-endpoint-fdevias
+
+frameworkVersion: ">=1.2.0"
 
 provider:
   name: aws
-  runtime: nodejs12.x
-
-environment:
-  marketTable: Market
-  
-custom:
-  dynamodb:
-    stages:
-      - dev
-
-iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - dynamodb:GetItem
-        - dynamodb:UpdateItem
-      Resource: 
-        - { "Fn::GetAtt": ["MarketDynamoDbTable", "Arn" ] }
+  runtime: python2.7 # or python3.7, supported as of November 2018
 
 functions:
-  seek:
-    handler: api/handler.seek
+  currentTime:
+    handler: handler.endpoint
     events:
       - http:
-          path: /item
+          path: ping
           method: get
-  buy:
-    handler: api/handler.buy
-    events:
-      - http:
-          path: /item
-          method: post
-
-resources:
-  Resources:
-    MarketDynamoDbTable:
-      Type: 'AWS::DynamoDB::Table'
-      Properties:
-        AttributeDefinitions:
-            - AttributeName: "itemID"
-              AttributeType: "S" 
-        ProvisionedThroughput:
-          ReadCapacityUnits: 5
-          WriteCapacityUnits: 5  
-        KeySchema:
-            - AttributeName: "itemID"
-              KeyType: "HASH"
-        TableName: "Market"
-
-plugins:
-  - serverless-offline
-  - serverless-dynamodb-local
