@@ -6,14 +6,14 @@ pipeline{
            sh 'npm install'
         }
      }
-  }
-}
-     stage('deploy') {
+    stage('deploy') {
         steps {
         nodejs(nodeJSInstallationName: 'nodejs') {
         withAWS(credentials: 'aws-credentials') {
-        sh 'serverless deploy'
+           sh 'serverless deploy'
         }
       }
-   }
+    }
+  }
+ }
 }
